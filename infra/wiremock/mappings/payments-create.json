@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/v1/payments"
+  },
+  "response": {
+    "status": 201,
+    "fixedDelayMilliseconds": 300,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": {
+      "paymentId": "{{randomValue type='UUID'}}",
+      "status": "AUTHORIZED"
+    },
+    "transformers": ["response-template"]
+  }
+}

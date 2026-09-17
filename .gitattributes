@@ -1,0 +1,5 @@
+# Скрипты и конфиги с LF, иначе mvnw и entrypoint-скрипты ломаются в WSL/Linux
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.jar binary
