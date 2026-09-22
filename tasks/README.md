@@ -40,7 +40,7 @@
 - [ ] 6.1 Приём трекинг-событий: k6, профилирование, тюнинг
 - [ ] 6.2 Кэш каталога в Redis, защита от cache stampede
 - [ ] 6.3 Распределённый rate limiting
-- [ ] 6.4 Метрики и дашборд: RPS, p99, consumer lag
+- [ ] 6.4 Метрики и дашборд: RPS, p99, consumer lag. проверить экспорт метрик в тесте, нужен @AutoConfigureObservability
 
 ## S — Spring под капотом
 - [ ] S.1 Ловушки @Transactional

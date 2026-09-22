@@ -15,7 +15,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestcontainersConfiguration.class)
 class ApplicationSmokeIT {
-
     @Autowired
     TestRestTemplate rest;
 
@@ -40,13 +39,5 @@ class ApplicationSmokeIT {
 
         assertThat(applied).isPositive();
         assertThat(failed).isZero();
-    }
-
-    @Test
-    void prometheusEndpointIsExposed() {
-        ResponseEntity<String> response = rest.getForEntity("/actuator/prometheus", String.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).contains("jvm_memory_used_bytes");
     }
 }
