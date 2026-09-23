@@ -4,7 +4,7 @@
 Дополнительные блоки (S, J, D, R, Q) вставляем между этапами, когда хочется сменить тему.
 
 ## Этап 0 — Фундамент
-- [ ] 0.1 Скелет, docker-compose, миграции, Testcontainers
+- [x] 0.1 Скелет, docker-compose, миграции, Testcontainers
 - [ ] 0.2 Health checks: liveness/readiness, кастомные индикаторы, graceful shutdown
 
 ## Этап 1 — Домен и БД
