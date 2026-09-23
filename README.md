@@ -38,6 +38,17 @@ docker compose ps            # все сервисы должны быть healt
 
 Проверка: http://localhost:8080/actuator/health
 
+```Тесты
+# Только unit тесты
+./mvnw test
+
+# интеграционные тесты + unit тесты
+./mvnw verify
+
+# Только интеграционные тесты
+./mvnw verify -DskipUnitTests=true
+```
+
 ## Порты
 
 | Сервис | Адрес | Примечание |
