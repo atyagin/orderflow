@@ -38,8 +38,14 @@ docker compose ps            # все сервисы должны быть healt
 
 Проверка: http://localhost:8080/actuator/health
 
- запустить только юнит-тесты без Docker  ./mvnw verify
- запустить только интеграционные         ./mvnw failsafe:integration-test failsafe:verify
+ # Unit tests only
+./mvnw test
+
+# Full build + unit + integration tests
+./mvnw verify
+
+# Integration tests only
+./mvnw verify -DskipUnitTests=true
 
 ## Порты
 
