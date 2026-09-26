@@ -1,6 +1,6 @@
-package dev.orderflow.healthcheck;
+package dev.orderflow.payment.healthcheck;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.http.ResponseEntity;
@@ -8,15 +8,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 import org.springframework.web.client.RestClient;
 
-
 @Component
 public class PaymentProviderHealthIndicator  extends AbstractHealthIndicator {
 
-    private final String url;
     private final RestClient restClient;
 
-    public PaymentProviderHealthIndicator(@Value("${orderflow.payment-provider.base-url}") String url, RestClient restClient) {
-        this.url = url;
+    public PaymentProviderHealthIndicator(@Qualifier("paymentRestClient") RestClient restClient) {
         this.restClient = restClient;
 
     }
@@ -29,18 +26,19 @@ public class PaymentProviderHealthIndicator  extends AbstractHealthIndicator {
             stopWatch.start();
             ResponseEntity<String> response = restClient
                 .get()
-                .uri(url + "/health")
+                .uri("/health")
                 .retrieve()
                 .toEntity(String.class);
 
             stopWatch.stop();
 
             builder.up()
-                .withDetail("latancy", stopWatch.getTotalTimeMillis());
+                .withDetail("latency", stopWatch.getTotalTimeMillis());
 
         } catch (Exception e) {
+            stopWatch.stop();
             builder.down()
-                .withException(e);
+                .withDetail("latency", stopWatch.getTotalTimeMillis());
         }
     }
 

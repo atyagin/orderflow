@@ -20,18 +20,21 @@ class LivenessReadinessIT {
     TestRestTemplate rest;
 
     @Test
-    void healthIsUp() {
+    void livenessHealthIsUp() {
         ResponseEntity<JsonNode> response = rest.getForEntity("/actuator/health/readiness", JsonNode.class);
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(response.getBody()).isNotNull();
         Assertions.assertThat(response.getBody().path("status").asText()).isEqualTo("UP");
+    }
 
-        ResponseEntity<JsonNode> response2 = rest.getForEntity("/actuator/health/liveness", JsonNode.class);
+    @Test
+    void readinessHealthIsUp() {
+        ResponseEntity<JsonNode> response = rest.getForEntity("/actuator/health/readiness", JsonNode.class);
 
-        Assertions.assertThat(response2.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response2.getBody()).isNotNull();
-        Assertions.assertThat(response2.getBody().path("status").asText()).isEqualTo("UP");
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody()).isNotNull();
+        Assertions.assertThat(response.getBody().path("status").asText()).isEqualTo("UP");
     }
 
 }

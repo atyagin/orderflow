@@ -1,8 +1,10 @@
-package dev.orderflow.healthcheck;
+package dev.orderflow.common.healthcheck;
 
 import jakarta.annotation.PreDestroy;
 import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.DescribeClusterOptions;
 import org.apache.kafka.clients.admin.DescribeClusterResult;
+import org.apache.kafka.common.KafkaFuture;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.kafka.core.KafkaAdmin;
@@ -21,24 +23,27 @@ public class KafkaHealthIndicator extends AbstractHealthIndicator {
     }
 
     @Override
-    protected void doHealthCheck(Health.Builder builder) throws Exception {
+    protected void doHealthCheck(Health.Builder builder) {
         try {
-            DescribeClusterResult describeClusterResult = adminClient.describeCluster();
 
-            String clusterId = describeClusterResult.clusterId().get(1, TimeUnit.SECONDS);
-            int brokers = describeClusterResult.nodes().get(1, TimeUnit.SECONDS).size();
+            DescribeClusterOptions options = new DescribeClusterOptions().timeoutMs(1500);
+            DescribeClusterResult describeClusterResult = adminClient.describeCluster(options);
+
+            String clusterId = describeClusterResult.clusterId().get(2, TimeUnit.SECONDS);
+            int brokers = describeClusterResult.nodes().get().size();
 
             builder.up()
                 .withDetail("clusterId", clusterId)
                 .withDetail("brokers", brokers);
         } catch (Exception e) {
-            builder.down()
-                .withException(e);
+            builder.down();
         }
     }
 
     @PreDestroy
     public void close() {
-        adminClient.close(Duration.ofSeconds(2));
+        if (adminClient != null) {
+            adminClient.close(Duration.ofSeconds(2));
+        }
     }
 }

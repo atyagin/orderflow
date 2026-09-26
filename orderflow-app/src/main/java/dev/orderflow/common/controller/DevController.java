@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/dev")
-@Profile("dev")
+//@Profile("dev")
 public class DevController {
 
 
     @GetMapping("/slow")
-    public ResponseEntity<String> slow(@RequestParam(defaultValue = "ms")  int ms) {
+    public ResponseEntity<String> slow(@RequestParam(defaultValue = "0") int ms) {
 
         try {
             Thread.sleep(ms);

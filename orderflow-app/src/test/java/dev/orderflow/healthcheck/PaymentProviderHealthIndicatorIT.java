@@ -3,6 +3,7 @@ package dev.orderflow.healthcheck;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import dev.orderflow.payment.healthcheck.PaymentProviderHealthIndicator;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
@@ -17,10 +18,10 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(properties = {
-    "spring.http.client.connect-timeout=500ms",
-    "spring.http.client.read-timeout=500ms"
+    "orderflow.payment-provider.connect-timeout=500ms",
+    "orderflow.payment-provider.read-timeout=500ms"
 })
-class PaymentProviderHealthIndicatorTest {
+class PaymentProviderHealthIndicatorIT {
 
 
     private static WireMockServer wireMockServer;
