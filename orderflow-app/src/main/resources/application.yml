@@ -28,9 +28,20 @@ spring:
     problemdetails:
       enabled: true          # ошибки в формате RFC 9457
 
+  lifecycle:
+    timeout-per-shutdown-phase: "20s"
+
+server:
+  # 1. Включаем режим плавного завершения (по умолчанию 'immediate')
+  shutdown: graceful
+
 orderflow:
   payment-provider:
     base-url: http://localhost:8089   # WireMock из docker-compose; биндинг в @ConfigurationProperties — задача 0.2
+    connect-timeout: 3s
+    read-timeout: 4s
+  kafka:
+    timeout: 1500ms
 
 management:
   endpoints:
@@ -39,4 +50,12 @@ management:
         include: health, info, metrics, prometheus
   endpoint:
     health:
+      probes:
+        enabled: true
       show-details: always   # только для локальной разработки
+
+      group:
+        liveness:
+          include: ping, livenessState
+        readiness:
+          include: db, readinessState
