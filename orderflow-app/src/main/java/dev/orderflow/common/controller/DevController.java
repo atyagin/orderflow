@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/dev")
-//@Profile("dev")
+@Profile("dev")
 public class DevController {
 
 

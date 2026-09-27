@@ -1,7 +1,6 @@
-package dev.orderflow.healthcheck;
+package dev.orderflow.common.healthcheck;
 
 import dev.orderflow.TestcontainersConfiguration;
-import dev.orderflow.common.healthcheck.KafkaHealthIndicator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;

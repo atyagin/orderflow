@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.URL;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.Duration;
+
 @Validated
 @ConfigurationProperties(prefix = "orderflow")
 public record OrderFlowProperties(
@@ -18,9 +20,9 @@ public record OrderFlowProperties(
         @NotBlank(message = "Base URL не может быть пустым")
         @URL(message = "Base URL должен быть корректным URL-адресом")
         String baseUrl,
-        @NotBlank(message = "connect-timeout не может быть пустым")
-        String connectTimeout,
-        @NotBlank(message = "read-timeout не может быть пустым")
-        String readTimeout
+        @NotNull (message = "connect-timeout не может быть пустым")
+        Duration connectTimeout,
+        @NotNull (message = "read-timeout не может быть пустым")
+        Duration readTimeout
     ) {}
 }

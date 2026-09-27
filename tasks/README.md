@@ -5,7 +5,7 @@
 
 ## Этап 0 — Фундамент
 - [x] 0.1 Скелет, docker-compose, миграции, Testcontainers
-- [ ] 0.2 Health checks: liveness/readiness, кастомные индикаторы, graceful shutdown
+- [x] 0.2 Health checks: liveness/readiness, кастомные индикаторы, graceful shutdown
 
 ## Этап 1 — Домен и БД
 - [ ] 1.1 Агрегат Order (orders + order_items), инварианты, статусная модель (State)

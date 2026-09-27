@@ -41,11 +41,6 @@ orderflow:
     connect-timeout: 3s
     read-timeout: 4s
 
-default:
-  api:
-    timeout:
-      ms:2000
-
 management:
   endpoints:
     web:
@@ -61,4 +56,4 @@ management:
         liveness:
           include: ping, livenessState
         readiness:
-          include: db, redis, kafka, readinessState, paymentProvider
+          include: db, readinessState

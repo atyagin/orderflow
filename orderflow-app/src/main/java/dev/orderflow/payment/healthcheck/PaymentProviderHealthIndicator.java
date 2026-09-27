@@ -36,7 +36,9 @@ public class PaymentProviderHealthIndicator  extends AbstractHealthIndicator {
                 .withDetail("latency", stopWatch.getTotalTimeMillis());
 
         } catch (Exception e) {
-            stopWatch.stop();
+            if (stopWatch.isRunning()) {
+                stopWatch.stop();
+            }
             builder.down()
                 .withDetail("latency", stopWatch.getTotalTimeMillis());
         }

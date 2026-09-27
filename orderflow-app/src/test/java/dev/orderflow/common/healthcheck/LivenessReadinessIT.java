@@ -1,4 +1,4 @@
-package dev.orderflow.healthcheck;
+package dev.orderflow.common.healthcheck;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import dev.orderflow.TestcontainersConfiguration;
@@ -21,7 +21,7 @@ class LivenessReadinessIT {
 
     @Test
     void livenessHealthIsUp() {
-        ResponseEntity<JsonNode> response = rest.getForEntity("/actuator/health/readiness", JsonNode.class);
+        ResponseEntity<JsonNode> response = rest.getForEntity("/actuator/health/liveness", JsonNode.class);
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(response.getBody()).isNotNull();

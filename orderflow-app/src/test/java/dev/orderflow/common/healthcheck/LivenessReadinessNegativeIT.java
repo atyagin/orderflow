@@ -1,4 +1,4 @@
-package dev.orderflow.healthcheck;
+package dev.orderflow.common.healthcheck;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import dev.orderflow.TestcontainersConfiguration;

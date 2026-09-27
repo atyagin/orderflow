@@ -1,14 +1,16 @@
-package dev.orderflow.healthcheck;
+package dev.orderflow.payment.healthcheck;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import dev.orderflow.TestcontainersConfiguration;
 import dev.orderflow.payment.healthcheck.PaymentProviderHealthIndicator;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 
@@ -21,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
     "orderflow.payment-provider.connect-timeout=500ms",
     "orderflow.payment-provider.read-timeout=500ms"
 })
+@Import(TestcontainersConfiguration.class)
 class PaymentProviderHealthIndicatorIT {
 
 
