@@ -1,9 +1,6 @@
 package dev.orderflow.common.config;
 
 import dev.orderflow.common.properties.OrderFlowProperties;
-import org.springframework.boot.convert.DurationStyle;
-import org.springframework.boot.http.client.ClientHttpRequestFactoryBuilder;
-import org.springframework.boot.http.client.ClientHttpRequestFactorySettings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;

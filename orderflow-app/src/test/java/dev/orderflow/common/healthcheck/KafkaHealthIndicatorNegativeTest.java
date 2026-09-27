@@ -1,5 +1,6 @@
 package dev.orderflow.common.healthcheck;
 
+import dev.orderflow.common.properties.OrderFlowProperties;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.junit.jupiter.api.AfterEach;
@@ -16,19 +17,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 
 
-class KafkaHealthIndicatorNegativeIT {
+class KafkaHealthIndicatorNegativeTest {
 
     private AdminClient adminClient;
     private KafkaHealthIndicator healthIndicator;
 
     @BeforeEach
     void setUp() {
+        OrderFlowProperties.PaymentProviderProperties paymentProvider =
+            new OrderFlowProperties.PaymentProviderProperties(
+                "http://localhost",    // baseUrl
+                Duration.ofSeconds(1), // connectTimeout
+                Duration.ofSeconds(1)  // readTimeout
+            );
+        OrderFlowProperties.KafkaProps kafkaProps =
+            new OrderFlowProperties.KafkaProps(1500);
+        OrderFlowProperties props = new OrderFlowProperties(paymentProvider, kafkaProps);
+
         Map<String, Object> properties = new HashMap<>();
         properties.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:50000");
         properties.put(AdminClientConfig.REQUEST_TIMEOUT_MS_CONFIG, 500);
         properties.put(AdminClientConfig.DEFAULT_API_TIMEOUT_MS_CONFIG, 500);
         adminClient = AdminClient.create(properties);
-        healthIndicator = new KafkaHealthIndicator(adminClient);
+        healthIndicator = new KafkaHealthIndicator(adminClient, props);
     }
 
     @AfterEach

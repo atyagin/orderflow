@@ -40,6 +40,8 @@ orderflow:
     base-url: http://localhost:8089   # WireMock из docker-compose; биндинг в @ConfigurationProperties — задача 0.2
     connect-timeout: 3s
     read-timeout: 4s
+  kafka-props:
+    timeout: 1500
 
 management:
   endpoints:
