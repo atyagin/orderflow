@@ -30,8 +30,8 @@ class KafkaHealthIndicatorNegativeTest {
                 Duration.ofSeconds(1), // connectTimeout
                 Duration.ofSeconds(1)  // readTimeout
             );
-        OrderFlowProperties.KafkaProps kafkaProps =
-            new OrderFlowProperties.KafkaProps(1500);
+        OrderFlowProperties.Kafka kafkaProps =
+            new OrderFlowProperties.Kafka(Duration.ofMillis(1500));
         OrderFlowProperties props = new OrderFlowProperties(paymentProvider, kafkaProps);
 
         Map<String, Object> properties = new HashMap<>();

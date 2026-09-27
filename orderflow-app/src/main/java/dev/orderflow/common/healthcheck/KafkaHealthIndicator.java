@@ -27,15 +27,15 @@ public class KafkaHealthIndicator extends AbstractHealthIndicator {
     @Override
     protected void doHealthCheck(Health.Builder builder) {
         try {
-            OrderFlowProperties.KafkaProps providerProps = properties.kafkaProps();
+            OrderFlowProperties.Kafka providerProps = properties.kafka();
 
-            DescribeClusterOptions options = new DescribeClusterOptions().timeoutMs(providerProps.timeout());
+            DescribeClusterOptions options = new DescribeClusterOptions().timeoutMs((int) providerProps.timeout().toMillis());
             DescribeClusterResult describeClusterResult = adminClient.describeCluster(options);
 
             CompletableFuture<String> clusterIdFuture = describeClusterResult.clusterId().toCompletionStage().toCompletableFuture();
             CompletableFuture<Collection<Node>> nodesFuture = describeClusterResult.nodes().toCompletionStage().toCompletableFuture();
 
-            CompletableFuture.allOf(clusterIdFuture, nodesFuture).get(providerProps.timeout(), TimeUnit.SECONDS);
+            CompletableFuture.allOf(clusterIdFuture, nodesFuture).get(providerProps.timeout().toMillis(), TimeUnit.MILLISECONDS);
 
             String clusterId = clusterIdFuture.join();
             Collection<Node> brokers = nodesFuture.join();
